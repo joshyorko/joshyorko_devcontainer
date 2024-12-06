@@ -1,0 +1,11 @@
+👋 Welcome to JoshYorko's DevContainer!
+
+    - This environment includes a PostgreSQL database and a custom development container.
+    - The development container is built from the image: ghcr.io/joshyorko/joshyorko_devcontainer:latest.
+    - Your workspace is mounted at /workspaces.
+
+🔍 To explore VS Code to its fullest, search using the Command Palette (Cmd/Ctrl + Shift + P or F1).
+
+📝 Edit away, run your app as usual, and we'll automatically make it available for you to access.
+
+📚 For more information on configuring your Codespace, visit: https://aka.ms/configure-codespace

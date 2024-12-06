@@ -1,24 +1,63 @@
 name: devcontainer-test
+x-common-networks: &common-networks
+  networks:
+    - devcontainer-network
+
 services:
   devcontainer:
     build: 
       context: .
       dockerfile: Dockerfile
-    image: devcontainer-test
+    image: ghcr.io/joshyorko/joshyorko_devcontainer:latest
     volumes:
       - ../..:/workspaces:cached      
-    network_mode: service:db
+    <<: *common-networks
     command: sleep infinity
 
   db:
-    image: postgres:latest
+    image: bitnami/postgresql:latest
     restart: unless-stopped
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres-data:/bitnami/postgresql
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
+    <<: *common-networks
+
+  minio:
+    image: minio/minio:latest
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: Pa22word22
+    command: ["server", "--console-address", ":9001", "/data"]
+    <<: *common-networks
+
+  mino-setup:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: Pa22word22
+    entrypoint: >
+      /bin/sh -c "
+      echo 'Waiting for Minio to start...' &&
+      /bin/sleep
+      mc alias set minio http://minio:9000 $$MINIO_ACCESS_KEY $$MINIO_SECRET_KEY &&
+      mc mb minio/my-content-engine &&
+      echo 'Minio setup complete'"
+    <<: *common-networks
 
 volumes:
   postgres-data:
+  minio-data:
+
+networks:
+  devcontainer-network:
