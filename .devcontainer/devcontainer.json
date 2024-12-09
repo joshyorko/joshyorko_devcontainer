@@ -1,5 +1,6 @@
 {
-    "image": "ghcr.io/joshyorko/joshyorko_devcontainer:latest",
-    "workspaceFolder": "/codespace/${localWorkspaceFolderBasename}",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "devcontainer",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "postCreateCommand": "cowsay -t 'This development environment Kicks Ass!'"
 }
