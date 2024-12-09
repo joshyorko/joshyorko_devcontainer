@@ -60,5 +60,5 @@ RUN curl -fsSL https://raw.githubusercontent.com/joshyorko/.dotfiles/refs/heads/
     sudo chown -R codespace:codespace /home/codespace/.oh-my-zsh/custom/plugins
 
 
-# Keep the container running
-CMD ["sleep", "infinity"]
+# Start MinIO Server and MinIO Client setup in the entrypoint
+CMD ["bash", "-c", "minio server ~/minio --console-address :9001 & sleep 5 && mc alias set local http://localhost:9000 minioadmin minioadmin && mc mb local/my-content-engine && sleep infinity"]
