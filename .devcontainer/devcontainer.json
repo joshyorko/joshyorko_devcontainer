@@ -3,5 +3,5 @@
     "dockerComposeFile": "docker-compose.yml",
     "service": "devcontainer",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-    "postCreateCommand": "cowsay -t 'This development environment Kicks Ass!'"
+    "postCreateCommand": "cowsay -t 'This development environment Kicks Ass!' && touch /var/lib/docker/codespacemount/.persistedshare/vsserverhostlog.txt /var/lib/docker/codespacemount/.persistedshare/vsserverterminallog.txt"
 }
