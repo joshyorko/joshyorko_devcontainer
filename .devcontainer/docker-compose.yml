@@ -3,9 +3,9 @@ name: devcontainer-test
 
 services:
   devcontainer:
-    #build:
-    #  context: .
-    #  dockerfile: Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: ghcr.io/joshyorko/joshyorko_devcontainer:latest
     volumes:
       - ../..:/workspaces:cached
