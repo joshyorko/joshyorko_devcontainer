@@ -1,7 +1,17 @@
+// .devcontainer/devcontainer.json
 {
-    "name": "Simple Dev Container",
+    "name": "Universal Dev Container",
     "dockerComposeFile": "docker-compose.yml",
     "service": "devcontainer",
-    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-    "postCreateCommand": "cowsay -t 'This development environment Kicks Ass!' && touch /var/lib/docker/codespacemount/.persistedshare/vsserverhostlog.txt /var/lib/docker/codespacemount/.persistedshare/vsserverterminallog.txt"
+    "workspaceFolder": "/workspaces/joshyorko_devcontainer",
+    "remoteUser": "root",
+    "updateRemoteUserUID": false,
+    "postCreateCommand": "cowsay -t 'This development environment Kicks Ass!'",
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/devcontainers/features/conda:1": {},
+        "ghcr.io/devcontainers/features/git-lfs:1": {
+            "version": "latest"
+        }
+    }
 }

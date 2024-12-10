@@ -1,20 +1,24 @@
 name: devcontainer-test
 
-
 services:
   devcontainer:
-    build:
+    build: 
       context: .
       dockerfile: Dockerfile
-    image: ghcr.io/joshyorko/joshyorko_devcontainer:latest
     volumes:
-      - ../..:/workspaces:cached
-    networks:
-      - devcontainer-network
+      - ..:/workspaces/${localWorkspaceFolderBasename}:cached
     command: sleep infinity
+    network_mode: service:db
+  
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
 
- 
-
-networks:
-  devcontainer-network:
-
+volumes:
+  postgres-data:
