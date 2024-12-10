@@ -1,6 +1,38 @@
 {
+    "name": "Prebuilt Dev Environment",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "..",
+        "args": {
+            "VARIANT": "focal",
+            "INSTALL_NODE": "true"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "zsh",
+                "editor.formatOnSave": true
+            },
+            "extensions": [
+                "ms-python.python",
+                "ms-vscode.cpptools",
+                "dbaeumer.vscode-eslint",
+                "zxh404.vscode-proto3"
+            ]
+        }
+    },
     "dockerComposeFile": "docker-compose.yml",
     "service": "devcontainer",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-    "postCreateCommand": "cowsay -t 'This development environment Kicks Ass!'"
+    "postCreateCommand": "cowsay -t 'This development environment kicks ass!'",
+    "remoteUser": "vscode",
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/conda:1": {
+            "version": "latest"
+        }
+    }
 }
