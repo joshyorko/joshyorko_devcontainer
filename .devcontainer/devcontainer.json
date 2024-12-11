@@ -3,9 +3,7 @@
     "name": "Universal Dev Container",
     "dockerComposeFile": "docker-compose.yml",
     "service": "devcontainer",
-    "workspaceFolder": "/workspaces/joshyorko_devcontainer",
-    "remoteUser": "root",
-    "updateRemoteUserUID": false,
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "postCreateCommand": "cowsay -t 'This development environment Kicks Ass!'",
     "features": {
         "ghcr.io/devcontainers/features/docker-in-docker:2": {},
