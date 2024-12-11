@@ -12,6 +12,7 @@ RUN sudo apt-get update && \
     sudo apt-get install -y --no-install-recommends \
         awscli \
         git \
+        git-lfs \
         curl \
         vim \
         sudo \
@@ -35,7 +36,7 @@ RUN sudo apt-get update && \
     sudo apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get autoremove -y && apt-get clean -y
-
+RUN git lfs install
 # Move first run notice
 RUN sudo mkdir -p "/usr/local/etc/vscode-dev-containers/" && \
     sudo mv -f /tmp/scripts/first-run-notice.txt /usr/local/etc/vscode-dev-containers/
