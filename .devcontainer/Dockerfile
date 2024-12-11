@@ -1,10 +1,12 @@
-# .devcontainer/Dockerfile
-FROM mcr.microsoft.com/devcontainers/universal:focal
+FROM mcr.microsoft.com/devcontainers/universal:linux
 
-# Copy the first-run-notice.txt file
+# Create workspace directory
+RUN mkdir -p /workspaces
+
+# Copy first run notice
 COPY first-run-notice.txt /tmp/scripts/
 
-# Install essential packages, AWS CLI, PostgreSQL client, and build/debug tools
+# Install essential packages and build tools
 RUN sudo apt-get update && \
     sudo apt-get upgrade -y && \
     sudo apt-get install -y --no-install-recommends \
@@ -34,9 +36,9 @@ RUN sudo apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get autoremove -y && apt-get clean -y
 
-# Move the first run notice to the correct spot
-RUN mkdir -p "/usr/local/etc/vscode-dev-containers/" && \
-    mv -f /tmp/scripts/first-run-notice.txt /usr/local/etc/vscode-dev-containers/
+# Move first run notice
+RUN sudo mkdir -p "/usr/local/etc/vscode-dev-containers/" && \
+    sudo mv -f /tmp/scripts/first-run-notice.txt /usr/local/etc/vscode-dev-containers/
 
 # Install cowsay using pip
 RUN pip install cowsay
@@ -44,21 +46,11 @@ RUN pip install cowsay
 # Configure conda channels
 RUN conda config --append channels defaults
 
-# Create the 'vscode' user with sudo privileges
-RUN sudo adduser --disabled-password --gecos '' vscode && \
-    sudo usermod -aG sudo vscode && \
-    echo '%sudo ALL=(ALL) NOPASSWD:ALL' | sudo tee -a /etc/sudoers && \
-    sudo chown -R vscode:vscode /home/vscode
-
-# Download and copy .zshrc to the codespace user's home directory
+# Download and setup zsh configuration
 RUN curl -fsSL https://raw.githubusercontent.com/joshyorko/.dotfiles/refs/heads/main/dotfiles/.zshrc -o /home/codespace/.zshrc && \
     sudo chown codespace:codespace /home/codespace/.zshrc && \
-    # Install zsh-autosuggestions
     git clone https://github.com/zsh-users/zsh-autosuggestions /home/codespace/.oh-my-zsh/custom/plugins/zsh-autosuggestions && \
-    # Install zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-syntax-highlighting /home/codespace/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && \
     sudo chown -R codespace:codespace /home/codespace/.oh-my-zsh/custom/plugins
 
-
-# Keep the container running
 CMD ["sleep", "infinity"]

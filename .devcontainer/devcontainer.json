@@ -4,12 +4,6 @@
     "dockerComposeFile": "docker-compose.yml",
     "service": "devcontainer",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-    "postCreateCommand": "cowsay -t 'This development environment Kicks Ass!'",
-    "features": {
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-        "ghcr.io/devcontainers/features/conda:1": {},
-        "ghcr.io/devcontainers/features/git-lfs:1": {
-            "version": "latest"
-        }
-    }
+    "postCreateCommand": "cowsay -t 'This development environment Kicks Ass!'"
+   
 }
