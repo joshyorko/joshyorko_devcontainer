@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
     image: ghcr.io/joshyorko/joshyorko_devcontainer:latest
     volumes:
-      - ../..:/workspaces:cached
+      - ../..:/codespace:cached
     networks:
       - devcontainer-network
     command: sleep infinity
