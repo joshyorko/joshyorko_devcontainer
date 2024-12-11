@@ -3,7 +3,7 @@
     "name": "Universal Dev Container",
     "dockerComposeFile": "docker-compose.yml",
     "service": "devcontainer",
-    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "workspaceFolder": "/codespace/${localWorkspaceFolderBasename}",
     "postCreateCommand": "cowsay -t 'This development environment Kicks Ass!'"
    
 }
