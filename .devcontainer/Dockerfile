@@ -49,6 +49,9 @@ RUN sudo mkdir -p "/usr/local/etc/vscode-dev-containers/" && \
 # Install cowsay using pip
 RUN pip install cowsay
 
+RUN wget https://dl.min.io/client/mc/release/linux-amd64/mc -O /usr/local/bin/mc && \
+    chmod +x /usr/local/bin/mc
+
 # Configure conda channels
 RUN conda config --append channels defaults
 
