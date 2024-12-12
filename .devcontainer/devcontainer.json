@@ -1,9 +1,9 @@
 // .devcontainer/devcontainer.json
 {
     "name": "Universal Dev Container",
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "devcontainer",
-    "workspaceFolder": "/codespace/${localWorkspaceFolderBasename}",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "workspaceFolder": "/home/codespaces/${localWorkspaceFolderBasename}",
     "postCreateCommand": "cowsay -t 'This development environment Kicks Ass!'"
-   
 }
