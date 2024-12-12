@@ -33,10 +33,15 @@ RUN sudo apt-get update && \
         libnss3 libnspr4 libatk-bridge2.0-0 libatk1.0-0 libx11-6 \
         libpangocairo-1.0-0 libx11-xcb1 libcups2 libxcomposite1 \
         libxdamage1 libxfixes3 libpango-1.0-0 libgbm1 libgtk-3-0 && \
+    # Install Ansible \
+    sudo apt-add-repository --yes --update ppa:ansible/ansible && \
+    sudo apt-get install -y ansible && \
     sudo apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get autoremove -y && apt-get clean -y
+
 RUN git lfs install
+
 # Move first run notice
 RUN sudo mkdir -p "/usr/local/etc/vscode-dev-containers/" && \
     sudo mv -f /tmp/scripts/first-run-notice.txt /usr/local/etc/vscode-dev-containers/
