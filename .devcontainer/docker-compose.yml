@@ -1,6 +1,5 @@
 name: devcontainer-test
 
-
 services:
   devcontainer:
     build:
@@ -8,12 +7,10 @@ services:
       dockerfile: Dockerfile
     image: ghcr.io/joshyorko/joshyorko_devcontainer:latest
     volumes:
-      - ../..:/codespace:cached
+      - ../..:/workspaces
     networks:
       - devcontainer-network
     command: sleep infinity
-
- 
 
 networks:
   devcontainer-network:
