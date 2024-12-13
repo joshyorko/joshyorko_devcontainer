@@ -1,7 +1,8 @@
 👋 Welcome to JoshYorko's DevContainer!
 
-    - This environment includes a PostgreSQL database and a custom development container.
     - The development container is built from the image: ghcr.io/joshyorko/joshyorko_devcontainer:latest.
     - Your workspace is mounted at /workspaces.
+    - Please run conda config --append channels defaults
+    - Try out some fun functions I have created like conda_build_interactive, or conda_destroy
 
 
