@@ -4,6 +4,6 @@
     "build": {
         "dockerfile": "Dockerfile"
     },
-    "workspaceFolder": "/home/codespaces/${localWorkspaceFolderBasename}",
-    "postCreateCommand": "conda config --append channels defaults; cowsay -t 'This development environment Kicks Ass!'"
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "postCreateCommand": "conda config --append channels defaults; cowsay  -c ghostbusters -t 'This development environment Kicks Ass!'"
 }

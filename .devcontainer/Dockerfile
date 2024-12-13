@@ -1,7 +1,7 @@
-FROM mcr.microsoft.com/devcontainers/universal:linux
+FROM mcr.microsoft.com/devcontainers/universal:focal
 
 # Create workspace directory
-RUN mkdir -p /workspaces
+ #RUN mkdir -p /home/workspaces
 
 # Copy first run notice
 COPY first-run-notice.txt /tmp/scripts/
