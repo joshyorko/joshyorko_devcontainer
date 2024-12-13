@@ -54,9 +54,6 @@ RUN pip install cowsay
 RUN wget https://dl.min.io/client/mc/release/linux-amd64/mc -O /usr/local/bin/mc && \
     chmod +x /usr/local/bin/mc
 
-# Configure conda channels
-RUN conda config --append channels defaults
-
 # Download and setup zsh configuration
 RUN curl -fsSL https://raw.githubusercontent.com/joshyorko/.dotfiles/refs/heads/main/dotfiles/.zshrc -o /home/codespace/.zshrc && \
     sudo chown codespace:codespace /home/codespace/.zshrc && \
