@@ -1,7 +1,7 @@
 name: Build and Push Devcontainer
 
 on:
-  workflow_dispatch:qu
+  workflow_dispatch:
   #push:
   #  branches:
   #    - main
