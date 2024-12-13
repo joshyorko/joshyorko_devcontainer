@@ -60,6 +60,4 @@ jobs:
           build-args: |
             BUILDKIT_INLINE_CACHE=1
           outputs: type=registry,compression=zstd # Ensure downstream systems can handle zstd compression
-          cache-from: |
-            type=gha
-            type=local,src=/tmp/docker-cache
+       
