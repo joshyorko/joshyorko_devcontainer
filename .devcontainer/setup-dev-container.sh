@@ -20,8 +20,8 @@ echo "🚀 Starting development container setup..."
 
 show_progress "Updating system packages"
 {
-    sudo apt-get update >/dev/null 2>&1 && 
-    sudo apt-get upgrade -y >/dev/null 2>&1
+    sudo apt update >/dev/null 2>&1 && 
+    sudo apt upgrade -y >/dev/null 2>&1
 } || handle_error "Failed to update system packages"
 show_success "System packages updated"
 
@@ -65,6 +65,12 @@ show_progress "Installing k9s"
     curl -sS https://webinstall.dev/k9s | bash >/dev/null 2>&1
 } || handle_error "Failed to install k9s"
 show_success "k9s installed"
+
+show_progress "Installing fzf and fd-find"
+{
+    sudo apt-get install -y fzf fd-find >/dev/null 2>&1
+} || handle_error "Failed to install fzf and fd-find"
+show_success "fzf and fd-find installed"
 
 show_progress "Setting up Git LFS"
 {
