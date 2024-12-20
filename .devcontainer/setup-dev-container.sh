@@ -27,7 +27,7 @@ show_success "System packages updated"
 
 show_progress "Installing essential packages"
 {
-    sudo apt-get install -y --no-install-recommends \
+    sudo apt install -y --no-install-recommends \
         awscli git git-lfs curl vim sudo postgresql-client \
         build-essential cmake cppcheck valgrind clang lldb llvm \
         gdb python3-dev vim-doc xtail software-properties-common \
@@ -41,13 +41,13 @@ show_success "Essential packages installed"
 show_progress "Installing Ansible"
 {
     sudo apt-add-repository --yes --update ppa:ansible/ansible >/dev/null 2>&1 &&
-    sudo apt-get install -y ansible >/dev/null 2>&1
+    sudo apt install -y ansible >/dev/null 2>&1
 } || handle_error "Failed to install Ansible"
 show_success "Ansible installed"
 
 show_progress "Cleaning up apt cache"
 {
-    sudo apt-get clean >/dev/null 2>&1 &&
+    sudo apt clean >/dev/null 2>&1 &&
     sudo rm -rf /var/lib/apt/lists/* >/dev/null 2>&1
 } || true
 show_success "Cleanup completed"
@@ -68,8 +68,8 @@ show_success "k9s installed"
 
 show_progress "Installing fzf and fd-find"
 {
-    sudo apt-get update >/dev/null 2>&1 &&
-    sudo apt-get install -y fzf fd-find >/dev/null 2>&1
+    sudo apt update >/dev/null 2>&1 &&
+    sudo apt install -y fzf fd-find >/dev/null 2>&1
 } || handle_error "Failed to install fzf and fd-find"
 show_success "fzf and fd-find installed"
 
