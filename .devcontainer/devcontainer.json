@@ -1,9 +1,28 @@
 // .devcontainer/devcontainer.json
 {
     "name": "Universal Dev Container",
-    "build": {
-        "dockerfile": "Dockerfile"
+    "image": "mcr.microsoft.com/devcontainers/universal:focal",
+    "features": {
+        "awscli": "latest",
+        "git": "latest",
+        "git-lfs": "latest",
+        "vim": "latest",
+        "ansible": "latest",
+        "postgresql-client": "latest"
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "zsh"
+            },
+            "extensions": [
+                "ms-python.python",
+                "ms-azuretools.vscode-docker",
+                "hashicorp.terraform"
+            ]
+        }
     },
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-    "postCreateCommand": "conda config --append channels defaults; cowsay  -c ghostbusters -t 'This development environment Kicks Ass!'"
+    "postCreateCommand": "conda config --append channels defaults; cowsay -c ghostbusters -t 'This development environment Kicks Ass!'",
+    "onCreateCommand": "curl -O https://dl.min.io/client/mc/release/linux-amd64/mc && chmod +x mc && sudo mv mc /usr/local/bin/; git lfs install; curl -fsSL https://raw.githubusercontent.com/joshyorko/.dotfiles/refs/heads/main/dotfiles/.zshrc -o /home/codespace/.zshrc && sudo chown codespace:codespace /home/codespace/.zshrc; git clone https://github.com/zsh-users/zsh-autosuggestions /home/codespace/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git clone https://github.com/zsh-users/zsh-syntax-highlighting /home/codespace/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && sudo chown -R codespace:codespace /home/codespace/.oh-my-zsh/custom/plugins"
 }
