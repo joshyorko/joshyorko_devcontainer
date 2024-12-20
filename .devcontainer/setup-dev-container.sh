@@ -68,7 +68,7 @@ show_success "k9s installed"
 
 show_progress "Installing fzf and fd-find"
 {
-    sudo apt-get install -y fzf >/dev/null 2>&1
+    sudo apt-get install -y fzf fd-find >/dev/null 2>&1
 } || handle_error "Failed to install fzf and fd-find"
 show_success "fzf and fd-find installed"
 
