@@ -15,5 +15,5 @@
         }
     },
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-    "postCreateCommand": "bash /workspaces/setup-dev-container.sh; conda config --append channels defaults; cowsay -c ghostbusters -t 'This development environment Kicks Ass!'"
+    "postCreateCommand": "chmod +x .devcontainer/setup-dev-container.sh && bash .devcontainer/setup-dev-container.sh; conda config --append channels defaults; cowsay -c ghostbusters -t 'This development environment Kicks Ass!'"
 }
