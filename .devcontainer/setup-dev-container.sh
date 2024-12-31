@@ -25,10 +25,19 @@ show_progress "Updating system packages"
 } || handle_error "Failed to update system packages"
 show_success "System packages updated"
 
+show_progress "Installing AWS CLI v2"
+{
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" >/dev/null 2>&1 &&
+    unzip awscliv2.zip >/dev/null 2>&1 &&
+    sudo ./aws/install >/dev/null 2>&1 &&
+    rm -rf awscliv2.zip aws
+} || handle_error "Failed to install AWS CLI v2"
+show_success "AWS CLI v2 installed"
+
 show_progress "Installing essential packages"
 {
     sudo apt install -y --no-install-recommends \
-        awscli git git-lfs curl vim sudo postgresql-client \
+        git git-lfs curl vim sudo postgresql-client \
         build-essential cmake cppcheck valgrind clang lldb llvm \
         gdb python3-dev vim-doc xtail software-properties-common \
         libsecret-1-dev libnss3 libnspr4 libatk-bridge2.0-0 \
