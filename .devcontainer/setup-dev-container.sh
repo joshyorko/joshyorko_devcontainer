@@ -1,32 +1,5 @@
 #!/bin/bash
-# ==============================================================================
-# Re-exec self with a clean environment if not already done.
-# This prevents Bash from reading in exported functions (like nvs/nvsudo)
-# that cause the syntax errors.
-# ==============================================================================
-if [ -z "$CLEANED" ]; then
-  exec env -i HOME="$HOME" PATH="$PATH" USER="$USER" SHELL="$SHELL" CLEANED=1 "$0" "$@"
-fi
 
-# ==============================================================================
-# Fallback: Remove any lingering exported functions from the environment.
-# (Using eval to avoid "not a valid identifier" warnings.)
-# ==============================================================================
-for var in $(env | awk -F= '/^BASH_FUNC_nvs/ {print $1}'); do
-  eval "unset $var"
-done
-
-for var in $(env | awk -F= '/^BASH_FUNC_nvsudo/ {print $1}'); do
-  eval "unset $var"
-done
-
-# Also remove any functions defined in the current shell.
-unset -f nvs nvsudo
-
-# ==============================================================================
-# Below is your container-setup script.
-# ==============================================================================
-# Function to show step progress
 show_progress() {
     echo "⌛ $1..."
 }
