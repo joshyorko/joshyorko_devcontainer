@@ -1,16 +1,31 @@
 #!/bin/bash
-# Remove any exported functions for nvs and nvsudo from the environment.
-for var in $(env | grep '^BASH_FUNC_nvs' | cut -d= -f1); do
-  unset "$var"
+# ==============================================================================
+# Re-exec self with a clean environment if not already done.
+# This prevents Bash from reading in exported functions (like nvs/nvsudo)
+# that cause the syntax errors.
+# ==============================================================================
+if [ -z "$CLEANED" ]; then
+  exec env -i HOME="$HOME" PATH="$PATH" USER="$USER" SHELL="$SHELL" CLEANED=1 "$0" "$@"
+fi
+
+# ==============================================================================
+# Fallback: Remove any lingering exported functions from the environment.
+# (Using eval to avoid "not a valid identifier" warnings.)
+# ==============================================================================
+for var in $(env | awk -F= '/^BASH_FUNC_nvs/ {print $1}'); do
+  eval "unset $var"
 done
 
-for var in $(env | grep '^BASH_FUNC_nvsudo' | cut -d= -f1); do
-  unset "$var"
+for var in $(env | awk -F= '/^BASH_FUNC_nvsudo/ {print $1}'); do
+  eval "unset $var"
 done
 
 # Also remove any functions defined in the current shell.
 unset -f nvs nvsudo
 
+# ==============================================================================
+# Below is your container-setup script.
+# ==============================================================================
 # Function to show step progress
 show_progress() {
     echo "⌛ $1..."
@@ -31,7 +46,7 @@ echo "🚀 Starting development container setup..."
 
 show_progress "Updating system packages"
 {
-    sudo apt update >/dev/null 2>&1 && 
+    sudo apt update >/dev/null 2>&1 &&
     sudo apt upgrade -y >/dev/null 2>&1
 } || handle_error "Failed to update system packages"
 show_success "System packages updated"
