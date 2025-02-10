@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Unset any inherited function definitions for nvs and nvsudo
+unset -f nvs nvsudo
+unset BASH_FUNC_nvs%% BASH_FUNC_nvsudo%%
+
 # Function to show step progress
 show_progress() {
     echo "⌛ $1..."
