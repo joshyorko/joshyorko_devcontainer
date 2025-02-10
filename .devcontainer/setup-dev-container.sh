@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Function to show step progress
 show_progress() {
     echo "⌛ $1..."
 }
@@ -19,7 +20,7 @@ echo "🚀 Starting development container setup..."
 
 show_progress "Updating system packages"
 {
-    sudo apt update >/dev/null 2>&1 &&
+    sudo apt update >/dev/null 2>&1 && 
     sudo apt upgrade -y >/dev/null 2>&1
 } || handle_error "Failed to update system packages"
 show_success "System packages updated"
