@@ -1,8 +1,15 @@
 #!/bin/bash
+# Remove any exported functions for nvs and nvsudo from the environment.
+for var in $(env | grep '^BASH_FUNC_nvs' | cut -d= -f1); do
+  unset "$var"
+done
 
-# Unset any inherited function definitions for nvs and nvsudo
+for var in $(env | grep '^BASH_FUNC_nvsudo' | cut -d= -f1); do
+  unset "$var"
+done
+
+# Also remove any functions defined in the current shell.
 unset -f nvs nvsudo
-unset BASH_FUNC_nvs%% BASH_FUNC_nvsudo%%
 
 # Function to show step progress
 show_progress() {
