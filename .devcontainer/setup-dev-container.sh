@@ -69,11 +69,7 @@ show_progress "Installing MinIO client"
 } || handle_error "Failed to install MinIO client"
 show_success "MinIO client installed"
 
-show_progress "Installing k9s"
-{
-    curl -sS https://webinstall.dev/k9s | bash >/dev/null 2>&1
-} || handle_error "Failed to install k9s"
-show_success "k9s installed"
+
 
 show_progress "Installing fzf and fd-find"
 {
