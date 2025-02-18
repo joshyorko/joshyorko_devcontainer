@@ -90,7 +90,9 @@ show_success "Git LFS configured"
 show_progress "Setting up ZSH configuration"
 {
     curl -fsSL https://raw.githubusercontent.com/joshyorko/.dotfiles/refs/heads/main/dotfiles/.zshrc -o /home/codespace/.zshrc &&
+    curl -fsSL https://raw.githubusercontent.com/joshyorko/.dotfiles/refs/heads/main/scripts/scrapeCrawl.py -o /home/codespace/scrapeCrawl.py &&
     sudo chown codespace:codespace /home/codespace/.zshrc &&
+    sudo chown codespace:codespace /home/codespace/scrapeCrawl.py &&
     git clone https://github.com/zsh-users/zsh-autosuggestions /home/codespace/.oh-my-zsh/custom/plugins/zsh-autosuggestions >/dev/null 2>&1 &&
     git clone https://github.com/zsh-users/zsh-syntax-highlighting /home/codespace/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting >/dev/null 2>&1 &&
     sudo chown -R codespace:codespace /home/codespace/.oh-my-zsh/custom/plugins
@@ -102,6 +104,16 @@ show_progress "Installing Python packages"
     pip install cowsay >/dev/null 2>&1
 } || handle_error "Failed to install Python packages"
 show_success "Python packages installed"
+
+show_progress "Installing UV package installer"
+{
+    export UV_ROOT="/home/codespace/.uv"
+    mkdir -p "${UV_ROOT}"
+    curl -LsSf https://astral.sh/uv/install.sh | sh >/dev/null 2>&1 &&
+    echo 'export PATH="/home/codespace/.uv/bin:${PATH}"' >> /home/codespace/.zshrc &&
+    sudo ln -sf "${UV_ROOT}/bin/uv" /usr/local/bin/uv
+} || handle_error "Failed to install UV"
+show_success "UV package installer installed"
 
 show_progress "Configuring Conda channels"
 {
