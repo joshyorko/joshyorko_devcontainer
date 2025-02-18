@@ -105,15 +105,7 @@ show_progress "Installing Python packages"
 } || handle_error "Failed to install Python packages"
 show_success "Python packages installed"
 
-show_progress "Installing UV package installer"
-{
-    export UV_ROOT="/home/codespace/.uv"
-    mkdir -p "${UV_ROOT}"
-    curl -LsSf https://astral.sh/uv/install.sh | sh >/dev/null 2>&1 &&
-    echo 'export PATH="/home/codespace/.uv/bin:${PATH}"' >> /home/codespace/.zshrc &&
-    sudo ln -sf "${UV_ROOT}/bin/uv" /usr/local/bin/uv
-} || handle_error "Failed to install UV"
-show_success "UV package installer installed"
+
 
 show_progress "Configuring Conda channels"
 {

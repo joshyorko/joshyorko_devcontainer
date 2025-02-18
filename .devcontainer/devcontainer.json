@@ -5,7 +5,7 @@
         "dockerfile": "Dockerfile"
     },
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-    "postCreateCommand": "conda config --append channels defaults; cowsay  -c ghostbusters -t 'This development environment Kicks Ass!'",
+    "postCreateCommand": "curl https://install.duckdb.org | sh && mv duckdb /usr/local/bin/;curl -LsSf https://astral.sh/uv/install.sh | sh;conda config --append channels defaults; cowsay  -c ghostbusters -t 'This development environment Kicks Ass!'",
     "customizations": {
         "vscode": {
             "settings": {
