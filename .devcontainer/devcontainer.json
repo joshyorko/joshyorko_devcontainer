@@ -5,7 +5,7 @@
         "dockerfile": "Dockerfile"
     },
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-    "postCreateCommand": "curl -sS https://webinstall.dev/k9s | bash && conda config --append channels defaults; cowsay  -c ghostbusters -t 'This development environment Kicks Ass!'",
+    "postCreateCommand": "conda config --append channels defaults; cowsay  -c ghostbusters -t 'This development environment Kicks Ass!'",
     "customizations": {
         "vscode": {
             "settings": {

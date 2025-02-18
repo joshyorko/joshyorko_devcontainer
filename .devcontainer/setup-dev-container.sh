@@ -18,12 +18,16 @@ handle_error() {
 
 echo "🚀 Starting development container setup..."
 
-show_progress "Updating system packages"
+
+show_progress "Installing k9s"
 {
-    sudo apt update >/dev/null 2>&1 && 
-    sudo apt upgrade -y >/dev/null 2>&1
-} || handle_error "Failed to update system packages"
-show_success "System packages updated"
+    K9S_VERSION=$(curl -s https://api.github.com/repos/derailed/k9s/releases/latest | grep '"tag_name":' | cut -d'"' -f4) &&
+    curl -L "https://github.com/derailed/k9s/releases/download/${K9S_VERSION}/k9s_Linux_amd64.tar.gz" -o k9s.tar.gz >/dev/null 2>&1 &&
+    tar -xf k9s.tar.gz &&
+    sudo mv k9s /usr/local/bin/ &&
+    rm -f k9s.tar.gz LICENSE README.md
+} || handle_error "Failed to install k9s"
+show_success "k9s installed"
 
 show_progress "Installing AWS CLI v2"
 {
@@ -68,7 +72,6 @@ show_progress "Installing MinIO client"
     sudo mv mc /usr/local/bin/
 } || handle_error "Failed to install MinIO client"
 show_success "MinIO client installed"
-
 
 
 show_progress "Installing fzf and fd-find"

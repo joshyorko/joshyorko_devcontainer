@@ -46,6 +46,16 @@ jobs:
             type=raw,value=latest
             type=sha,format=long  # Ensures we always push a unique tag
 
+      - name: Check if cache image exists
+        id: cache_exists
+        run: |
+          if docker manifest inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache > /dev/null 2>&1; then
+            echo "cache_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "cache_exists=false" >> $GITHUB_OUTPUT
+          fi
+        continue-on-error: true # Don't fail the job if the image doesn't exist
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -54,11 +64,10 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64  # Ensuring a single architecture build
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          provenance: false  # Skipping provenance data to speed up builds
-          outputs: type=registry  # Removing compression=zstd to avoid layer mismatches
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache,mode=max
+          no-cache: ${{ steps.cache_exists.outputs.cache_exists == 'false' }}
 
       - name: Verify Image in GHCR
         run: |
-          skopeo inspect docker://ghcr.io/joshyorko/joshyorko_devcontainer:latest | jq '.Layers | length'
+          skopeo inspect docker://ghcr.io/${{ env.IMAGE_NAME }}:latest | jq '.Layers | length'
