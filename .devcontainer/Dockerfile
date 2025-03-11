@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/universal:2-focal
+FROM mcr.microsoft.com/devcontainers/universal:dev-focal
 
 # Copy first run notice
 COPY first-run-notice.txt /tmp/scripts/
